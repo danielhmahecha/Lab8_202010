@@ -26,6 +26,8 @@ from ADT import graph as g
 from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
+from DataStructures import dfs as dfs
+from DataStructures import bfs as bfs
 from datetime import datetime
 
 """
@@ -40,7 +42,7 @@ def newCatalog():
     """
     Inicializa el catálogo y retorna el catalogo inicializado.
     """
-    rgraph = g.newGraph(5500,compareByKey)
+    rgraph = g.newGraph(111353,compareByKey)
     catalog = {'reviewGraph':rgraph}    
     return catalog
 
@@ -49,16 +51,16 @@ def addReviewNode (catalog, row):
     """
     Adiciona un nodo para almacenar un libro o usuario 
     """
-    if not g.containsVertex(catalog['reviewGraph'], row['book_id']):
-        g.insertVertex (catalog['reviewGraph'], row['book_id'])
-    if not g.containsVertex(catalog['reviewGraph'], row['user_id']):
-        g.insertVertex (catalog['reviewGraph'], row['user_id'])
+    if not g.containsVertex(catalog['reviewGraph'], row['SOURCE']):
+        g.insertVertex (catalog['reviewGraph'], row['SOURCE'])
+    if not g.containsVertex(catalog['reviewGraph'], row['DEST']):
+        g.insertVertex (catalog['reviewGraph'], row['DEST'])
 
 def addReviewEdge (catalog, row):
     """
     Adiciona un enlace para almacenar una revisión
     """
-    g.addEdge (catalog['reviewGraph'], row['book_id'], row['user_id'], row['rating'])
+    g.addEdge (catalog['reviewGraph'], row['SOURCE'], row['DEST'], row['ARRIVAL_DELAY'])
 
 
 def countNodesEdges (catalog):
