@@ -11,7 +11,6 @@ from ADT import list as lt
 
 
 
-
 def newBFS(graph, source):
     """
     Crea una busqueda BFS para un grafo y un vertice origen
@@ -58,7 +57,6 @@ def comparenames (searchname, element):
     return (searchname == element['key'])
 
 
-
 # Function to return the smallest  
 # prime number greater than N 
 # # This code is contributed by Sanjit_Prasad  
@@ -100,38 +98,3 @@ def nextPrime(N):
             found = True
   
     return prime 
-
-if __name__ ==  "__main__" :
-    graph = g.newGraph(7,comparenames)
-
-    g.insertVertex (graph, 'Bogota')
-    g.insertVertex (graph, 'Yopal')
-    g.insertVertex (graph, 'Cali')
-    g.insertVertex (graph, 'Medellin')
-    g.insertVertex (graph, 'Pasto')
-    g.insertVertex (graph, 'Barranquilla')
-    g.insertVertex (graph, 'Manizales')
-    
-    g.insertVertex (graph, 'Cucuta')
-    g.insertVertex (graph, 'Bucaramanga')
-
-
-    g.addEdge (graph, 'Bogota', 'Yopal', 1 )
-    g.addEdge (graph, 'Bogota', 'Medellin', 1 )
-    g.addEdge (graph, 'Bogota', 'Pasto', 1 )
-    g.addEdge (graph, 'Bogota', 'Cali', 1 )
-    g.addEdge (graph, 'Yopal', 'Medellin', 1 )
-    g.addEdge (graph, 'Medellin', 'Pasto', 1 )
-    g.addEdge (graph, 'Cali', 'Pasto', 1 )
-    g.addEdge (graph, 'Cali', 'Barranquilla', 1 )
-    g.addEdge (graph, 'Barranquilla','Manizales', 1 )
-    g.addEdge (graph, 'Pasto','Manizales', 1 )
-    g.addEdge (graph, 'Cucuta','Bucaramanga', 1 )
-
-    search = newBFS(graph,'Bogota')
-
-
-    print ('A Cali', hasPathTo(search, 'Cali'))
-    print ('A Cucuta', hasPathTo(search,'Cucuta'))
-    pathManizales= pathTo(search,'Manizales')
-    print('BSF::roadToManizales',pathManizales)

@@ -27,6 +27,8 @@ from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
 from datetime import datetime
+from DataStructures import bfs 
+from DataStructures import dfs
 
 """
 Se define la estructura de un catálogo de libros.
@@ -75,6 +77,7 @@ def getPath (catalog, source, dst):
     Retorna el camino, si existe, entre vertice origen y destino
     """
     print("vertices: ",source,", ",dst)
+    dfs.newDFS()
     # ejecutar dfs desde source
     # obtener el camino hasta dst
     # retornar el camino
