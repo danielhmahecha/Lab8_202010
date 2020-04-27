@@ -51,6 +51,57 @@ def pathTo(search, v):
     stk.push(path,search['s'])
     return path
 
+def newDFS_2(grafo, source,revisados):
+    """
+    Crea una busqueda DFS para un grafo y un vertice origen
+    """
+    map.put(revisados,source,{'marked':True , 'edgeTo' : None})
+    dfs_2(grafo, source,revisados)
+    
+
+def dfs_2 (grafo, v, revisados) :
+    adjs = g.adjacents(grafo,v)
+    adjs_iter = it.newIterator (adjs)
+    while (it.hasNext(adjs_iter)):
+        w = it.next (adjs_iter)
+        visited_w = map.contains(revisados, w)
+        if visited_w == False :
+            map.put(revisados, w, {'marked':True, 'edgeTo': v })
+            dfs_2(grafo, w,revisados)
+
+def hasPathTo_2(mapa,origen,final):
+    """Me dice si existe un camino entre dos nodos"""
+    element = map.get(mapa,final)
+    if element:
+        return True
+    return False    
+
+
+def prueba(grafo,origen):  
+    """ Me retorna el map de los revisados a partir del origen"""
+    m = map.newMap(capacity= 10,comparefunction=grafo['comparefunction'],maptype='CHAINING')
+    newDFS_2(grafo,origen,m)
+    return m
+
+def el_camino(mapa,origen,final):
+    """ Retorna el camino entre dos nodos"""
+    r = hasPathTo_2(mapa,origen,final)
+    if r == False:
+        return None 
+    elif r == True :
+        escalas = lt.newList('ARRAYLIST')
+        v = final
+        while v != origen :
+            lt.addFirst(escalas,v)
+            w = map.get(mapa,v)
+            v = w['edgeTo']
+        lt.addFirst(escalas,origen)
+    return escalas
+def consulta(grafo,origen,destino):
+    t = prueba(grafo,origen)
+    r = el_camino(t,origen,destino)
+    return r 
+
 
 
 # Function to return the smallest  
@@ -85,6 +136,7 @@ def nextPrime(N):
     prime = N 
     found = False
   
+
     # Loop continuously until isPrime returns  
     # True for a number greater than n  
     while(not found): 
@@ -128,9 +180,13 @@ if __name__ ==  "__main__" :
     g.addEdge (graph, 'Cucuta','Bucaramanga', 1 )
 
     search = newDFS(graph,'Bogota')
-
-
+    #t = hasPathTo_2(graph,'Bogota','Cucuta')
+    #r = prueba(graph,'Cali')
+    #y = consulta(graph,'Bogota','Pasto')
     print ('A Cali', hasPathTo(search, 'Cali'))
     print ('A Cucuta', hasPathTo(search,'Cucuta'))
     pathManizales= pathTo(search,'Manizales')
+    number=stk.size(pathManizales)
     print('DSF::roadToManizales',pathManizales)
+    print(number)
+    

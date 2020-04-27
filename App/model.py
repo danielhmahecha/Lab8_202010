@@ -26,6 +26,8 @@ from ADT import graph as g
 from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
+from DataStructures import dfs as dfs
+from DataStructures import bfs as bfs
 from datetime import datetime
 from DataStructures import bfs 
 from DataStructures import dfs
@@ -42,7 +44,7 @@ def newCatalog():
     """
     Inicializa el catálogo y retorna el catalogo inicializado.
     """
-    rgraph = g.newGraph(5500,compareByKey)
+    rgraph = g.newGraph(111353,compareByKey)
     catalog = {'reviewGraph':rgraph}    
     return catalog
 
@@ -51,16 +53,16 @@ def addReviewNode (catalog, row):
     """
     Adiciona un nodo para almacenar un libro o usuario 
     """
-    if not g.containsVertex(catalog['reviewGraph'], row['book_id']):
-        g.insertVertex (catalog['reviewGraph'], row['book_id'])
-    if not g.containsVertex(catalog['reviewGraph'], row['user_id']):
-        g.insertVertex (catalog['reviewGraph'], row['user_id'])
+    if not g.containsVertex(catalog['reviewGraph'], row['SOURCE']):
+        g.insertVertex (catalog['reviewGraph'], row['SOURCE'])
+    if not g.containsVertex(catalog['reviewGraph'], row['DEST']):
+        g.insertVertex (catalog['reviewGraph'], row['DEST'])
 
 def addReviewEdge (catalog, row):
     """
     Adiciona un enlace para almacenar una revisión
     """
-    g.addEdge (catalog['reviewGraph'], row['book_id'], row['user_id'], row['rating'])
+    g.addEdge (catalog['reviewGraph'], row['SOURCE'], row['DEST'], row['ARRIVAL_DELAY'])
 
 
 def countNodesEdges (catalog):
@@ -72,16 +74,24 @@ def countNodesEdges (catalog):
 
     return nodes,edges
 
-def getPath (catalog, source, dst):
+def getPath (catalog, source, dest, strct):
     """
     Retorna el camino, si existe, entre vertice origen y destino
     """
-    print("vertices: ",source,", ",dst)
-    dfs.newDFS()
+    path = None
+    if g.containsVertex(catalog['reviewGraph'],source) and g.containsVertex(catalog['reviewGraph'],dest):
+        #print("vertices: ",source,", ", dest)
+        if strct == 'dfs':
+            search = dfs.newDFS(catalog['reviewGraph'],source)
+            path = dfs.pathTo(search,dest)
+        if strct == 'bfs':
+            search = bfs.newBFS(catalog['reviewGraph'],source)
+            path = bfs.pathTo(search, dest)
     # ejecutar dfs desde source
     # obtener el camino hasta dst
     # retornar el camino
-    return None
+
+    return path
     
 # Funciones de comparacion
 

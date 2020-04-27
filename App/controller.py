@@ -55,7 +55,7 @@ def loadBookReviews (catalog, sep=';'):
     referencia al libro que se esta procesando.
     """
     t1_start = process_time() #tiempo inicial
-    booksfile = cf.data_dir + 'GoodReads/book_reviews.csv'
+    booksfile = cf.data_dir + 'flights_edges.csv'
     dialect = csv.excel()
     dialect.delimiter=sep
     with open(booksfile, encoding="utf-8-sig") as csvfile:
@@ -95,13 +95,13 @@ def countNodesEdges(catalog):
     return nodes, edges
 
 
-def getPath(catalog, vertices):
+def getPath(catalog, vertices, strct):
     t1_start = process_time() #tiempo inicial
     source=vertices.split(" ")[0]
     dst=vertices.split(" ")[1]
-    path = model.getPath(catalog, source, dst)
+    path = model.getPath(catalog, source, dst,strct)
     t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución de dfs",t1_stop-t1_start," segundos")
+    print("Tiempo de ejecución de ",strct," ",t1_stop-t1_start," segundos")
     return path
 
 def getPathLeastEdges(catalog, vertices):

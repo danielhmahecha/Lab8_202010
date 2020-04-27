@@ -135,3 +135,5 @@ if __name__ ==  "__main__" :
     print ('A Cucuta', hasPathTo(search,'Cucuta'))
     pathManizales= pathTo(search,'Manizales')
     print('BSF::roadToManizales',pathManizales)
+    number=stk.size(pathManizales)
+    print(number)
