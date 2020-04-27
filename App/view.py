@@ -76,7 +76,7 @@ def main():
             verticesNum, edgesNum = controller.countNodesEdges(catalog) 
             print("El grafo tiene: ", verticesNum," nodos y", edgesNum," enlaces")
         elif int(inputs[0])==3:
-            vertices =input("Ingrese el vertice origen y destino (EJEMPLO: LAX-1-25 DEN-1-25 ) \n")
+            vertices =input("Ingrese el vertice origen y destino (EJEMPLO: HNL-1-25 ICT-1-25 ) \n")
             lst = controller.getPath(catalog,vertices,'dfs')
             print("El camino entre los vertices es:")
             if lst is not None:
@@ -90,13 +90,18 @@ def main():
                 print('\nNo hay camino para los vértices ingresados\n')
             
         elif int(inputs[0])==4:
-            vertices =input("Ingrese el vertice origen y destino (EJEMPLO: LAX-1-25 DEN-1-25 ) \n")
-            print("El camino entre los vertices es:")
+            vertices =input("Ingrese el vertice origen y destino (EJEMPLO: HNL-1-25 ICT-1-25 ) \n")
             lst = controller.getPath(catalog,vertices,'bfs')
-            lst_it = it.newIterator(lst)
-            while it.hasNext(lst_it):
-                city = it.next(lst_it)
-                print(city,'\n')
+            print("El camino entre los vertices es:")
+            if lst is not None:
+                lst_it = it.newIterator(lst)
+                route=''
+                while it.hasNext(lst_it):
+                    city = it.next(lst_it)
+                    route += city + " "
+                print (route)
+            else:
+                print('\nNo hay camino para los vértices ingresados\n')
         else:
             sys.exit(0)
     sys.exit(0)
